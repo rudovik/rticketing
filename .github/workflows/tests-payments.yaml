@@ -1,9 +1,10 @@
-
 name: tests-payments
 
 on:
-  pull_request
-  
+  pull_request:
+    paths:
+      - "payments/**"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: create env file
-        run: | 
+        run: |
           touch .env
           echo STRIPE_KEY=${{ env.STRIPE_KEY }} >> .env
       - run: cd payments && npm install && npm run test:ci
