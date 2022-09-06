@@ -7,6 +7,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      STRIPE_KEY: sk_test_iF9qYCwYZ8uUVUJ314PgxHcq00R17sNJ49
     steps:
       - uses: actions/checkout@v2
+      - name: create env file
+        run: | 
+          touch .env
+          echo STRIPE_KEY=${{ env.STRIPE_KEY }} >> .env
       - run: cd payments && npm install && npm run test:ci
